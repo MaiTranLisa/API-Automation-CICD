@@ -1,0 +1,4 @@
+email, pass,stattusCode,respondKeys,responseMessge
+eve.holt@reqres.in,pistol,200,id token,
+eve.holt@reqres.in,,400,error,Missing password
+,pistol,400,error,Missing email or username

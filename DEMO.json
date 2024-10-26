@@ -1,0 +1,46 @@
+[
+    {
+        "registerData": 
+            {
+                "email": "eve.holt@reqres.in",
+                "password": "pistol"
+            },
+               
+            "VerifyData": 
+            {
+                "message": "Register successfully:",
+                "expectedResponseCode": 200,
+                "expectedResponseMessage":"token"
+            }
+        },
+        {
+            "registerData": 
+            {
+                "email": "eve.holt@reqres.in",
+                "password": ""
+            },
+               
+            "VerifyData": 
+            {
+                "message": "Register failed due to missing password:",
+                "expectedResponseCode": 400,
+                "expectedResponseMessage":"Missing password"
+            }
+        },
+        {
+            "registerData": 
+            {
+                "email": "dem$%^o3@mail.com",
+                "password": "pistol"
+            },
+               
+            "VerifyData": 
+            {
+                "message": "Register failed due to using wrong mock email:",
+                "expectedResponseCode": 400,
+                "expectedResponseMessage":"Note: Only defined users succeed registration"
+            }
+        }
+    
+            
+]

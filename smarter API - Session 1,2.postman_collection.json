@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "4fc71f4f-de36-4793-8ce6-c353b0555d9f",
+		"name": "smarter API - Session 1,2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3696865"
+	},
+	"item": [
+		{
+			"name": "Single request (csv file)",
+			"item": [
+				{
+					"name": "Register successfully",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Register successfully\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"email\": \"eve.holt@reqres.in\",\r\n \"password\": \"pistol\"\r\n}"
+						},
+						"url": {
+							"raw": "https://reqres.in/api/register",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register failed due to missing password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Register failed due to missing password\", function(){\r",
+									"    pm.response.to.have.status(400)\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sydney@fife\"\r\n}"
+						},
+						"url": {
+							"raw": "https://reqres.in/api/register",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register failed due to using wrong mock email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Register failed due to using wrong mock email\", function(){\r",
+									"    pm.response.to.have.status(400)\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"email\": \"@$@mail.com\",\r\n \"password\": \"pistol\"\r\n}"
+						},
+						"url": {
+							"raw": "https://reqres.in/api/register",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data-driven request (demo.json)",
+			"item": [
+				{
+					"name": "Register successfully",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resBody = pm.response.json();\r",
+									"\r",
+									"pm.test(`${pm.variables.get(\"message\")} email: [${pm.variables.get(\"email\")}] | password: [${pm.variables.get(\"password\")}]`, function()\r",
+									"{\r",
+									"pm.response.to.have.status(pm.variables.get(\"expectedResponseCode\"));\r",
+									"})\r",
+									"\r",
+									"pm.test (`Verify Status Code response is [${pm.variables.get(\"expectedResponseCode\")}] and respon Body message [${pm.variables.get(\"expectedResponseMessage\")}]`,function() \r",
+									"{\r",
+									"    pm.expect(JSON.stringify(resBody)).to.contain(pm.variables.get(\"expectedResponseMessage\"))\r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"const registerData = pm.iterationData.get(\"registerData\");\r",
+									"const isEmail = registerData.email;\r",
+									"const isPass = registerData.password;\r",
+									"\r",
+									"//console.log(`isEmail:[${isEmail}] | isPass:[${isPass}]`);\r",
+									"\r",
+									"pm.variables.set(\"email\", isEmail);\r",
+									"pm.variables.set(\"password\",isPass);\r",
+									"\r",
+									"const VerifyData = pm.iterationData.get (\"VerifyData\");\r",
+									"const isMessage = VerifyData.message;\r",
+									"const isexpectedResponseCode = VerifyData.expectedResponseCode;\r",
+									"const isexpectedResponseMessage = VerifyData.expectedResponseMessage;\r",
+									"\r",
+									"pm.variables.set(\"message\", isMessage);\r",
+									"pm.variables.set(\"expectedResponseCode\",isexpectedResponseCode);\r",
+									"pm.variables.set(\"expectedResponseMessage\", isexpectedResponseMessage);\r",
+									"\r",
+									"\r",
+									"///body TEMPLATE\r",
+									"const isBody = JSON.stringify(\r",
+									"    {\r",
+									"        email:isEmail,\r",
+									"        password: isPass\r",
+									"    }\r",
+									")\r",
+									"\r",
+									"//console.log(`Body:${isBody}`);\r",
+									"\r",
+									"pm.variables.set(\"body\", isBody);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "https://reqres.in/api/register",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
