@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0e437954-25fd-4c16-940d-156d3797a2eb",
+		"_postman_id": "cb60adf2-6cc0-4190-90f9-a9f0fc4bc456",
 		"name": "MockServer_RegisterUser::sesction 3",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "3696865"
@@ -100,9 +100,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/register",
+							"raw": "{{MockUrl}}/api/register",
 							"host": [
-								"{{url}}"
+								"{{MockUrl}}"
 							],
 							"path": [
 								"api",
@@ -144,9 +144,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/register",
+							"raw": "{{MockUrl}}/api/register",
 							"host": [
-								"{{url}}"
+								"{{MockUrl}}"
 							],
 							"path": [
 								"api",
@@ -211,9 +211,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/api/register",
+					"raw": "{{MockUrl}}/api/register",
 					"host": [
-						"{{url}}"
+						"{{MockUrl}}"
 					],
 					"path": [
 						"api",
